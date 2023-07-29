@@ -36,12 +36,14 @@ getpk_hcdn <- function(huc2, endyear){
   
   stlist <- hcdn[[huc2]]
   
-  rst <- data.frame(wateryear = c(1850:endyear))
+  rst <- data.frame(wateryear = c(1856:endyear)) 
+  # Earliest available year = 1856, station ID = "20472000", not fully confirmed though
+  
   rst$wateryear <- as.character(rst$wateryear)
 
   for (i in stlist){ 
     pks <- c()
-    for (j in 1849:(endyear-1)){
+    for (j in 1855:(endyear-1)){
       cy <- as.character(j)
       wys <- paste0(cy, "-10-01")
       wy <- as.character(j+1)
