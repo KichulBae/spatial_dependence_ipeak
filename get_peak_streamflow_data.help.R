@@ -3,10 +3,10 @@
 
 # Function getting instantaneous peak values from NWIS with "dataRetrieval" ------------
 
-getpk <- function(stationID, start_date="", end_date="") {
+getpk <- function(station_ID, start_date="", end_date="") {
   tryCatch(
     expr = {
-      pk <- dataRetrieval::readNWISpeak(stationID, start_date, end_date)
+      pk <- dataRetrieval::readNWISpeak(station_ID, start_date, end_date)
       pk <- pk$peak_va
       if (is.null(pk) || length(pk) == 0) pk <- NA
       return(pk)
@@ -29,21 +29,23 @@ getpk <- function(stationID, start_date="", end_date="") {
 
 # Function getting data from all HCDN stations ----------------------------
 
-getpk_hcdn <- function(huc2, endyear){
+getpk_hcdn <- function(huc2, 
+                       end_year, 
+                       filepath = "~/spatial_dependence_ipeak/HCDN_LIST/"){
   
-  setwd("~/spatial_dependence_ipeak/HCDN_LIST/")
+  setwd(filepath)
   hcdn <- readRDS("list_all.RData")
   
-  stlist <- hcdn[[huc2]]
+  st_list <- hcdn[[huc2]]
   
-  rst <- data.frame(wateryear = c(1856:endyear)) 
+  rst <- data.frame(water_year = c(1856:end_year)) 
   # Earliest available year = 1856, station ID = "20472000", not fully confirmed though
   
-  rst$wateryear <- as.character(rst$wateryear)
+  rst$water_year <- as.character(rst$water_year)
 
-  for (i in stlist){ 
+  for (i in st_list){ 
     pks <- c()
-    for (j in 1855:(endyear-1)){
+    for (j in 1855:(end_year-1)){
       cy <- as.character(j)
       wys <- paste0(cy, "-10-01")
       wy <- as.character(j+1)
@@ -52,7 +54,7 @@ getpk_hcdn <- function(huc2, endyear){
     }
     rst[,length(rst)+1] <- pks
   }
-  colnames(rst)[-1] <- stlist
+  colnames(rst)[-1] <- st_list
   return(rst)
 }
 
