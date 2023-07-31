@@ -34,7 +34,7 @@ getpk_hcdn <- function(huc2,
                        filepath = "~/spatial_dependence_ipeak/HCDN_LIST/"){
   
   setwd(filepath)
-  hcdn <- readRDS("list_all.RData")
+  hcdn <- readRDS("hcdn_conus_list.RData")
   
   st_list <- hcdn[[huc2]]
   
