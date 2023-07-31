@@ -8,4 +8,4 @@ Description  : Retrieve annual(water year) instantaneous peak streamflow data fr
 ## get_hcdn_list
 Written by   : Kichul Bae <br />
 Written on   : Jul 31, 2023 <br />
-Description  : From USGS website (or local file),, retrieve a list of HCDN2009 stations, and make a table that contains station id, huc2, huc4, station name, state name, latitude, longitude, drainage area, and whether it belongs to CONUS or not (1 if it does)
+Description  : From USGS website (or local file), retrieve a list of HCDN2009 stations, and make a table that contains station id, huc2, huc4, station name, state name, latitude, longitude, drainage area, and whether it belongs to CONUS or not (1 if it does)
