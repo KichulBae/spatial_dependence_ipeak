@@ -77,7 +77,7 @@ load_hcdn <- function(
 # Define function to make a list of HCDN stations with basic info ---------
 # Written by   : Kichul Bae
 # Written on   : Jul 31, 2023
-# Description  : From USGS website (or local file), retrieve a list of HCDN2009 stations, and make a table that contains station id, huc2, huc4, station name, state name, latitude, longitude, drainage area, and whether it belongs to CONUS or not (1 if it does)
+# Description  : From the USGS website (or local files), retrieve a list of HCDN2009 stations, and make a table that contains station id, huc2, huc4, station name, state name, latitude, longitude, drainage area, and whether it belongs to the continental United States (CONUS) or not (1 if it does)
 
 hcdn_list <- function(hcdn, st_code){
   
@@ -123,15 +123,15 @@ hcdn_list <- function(hcdn, st_code){
     }
 
     rst <- rbindlist(list(rst, list(station_id, 
-                               huc2,
-                               huc4,
-                               station_nm,
-                               state_cd,
-                               lat_dec,
-                               log_dec,
-                               drain_area,
-                               drain_area_contr,
-                               conus)))
+                                    huc2,
+                                    huc4,
+                                    station_nm,
+                                    state_cd,
+                                    lat_dec,
+                                    log_dec,
+                                    drain_area,
+                                    drain_area_contr,
+                                    conus)))
   }
   
   print(sprintf("Failed to retrieve info of %i station(s) with dataRetrieval", length(error_stations)))
