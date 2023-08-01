@@ -38,7 +38,7 @@ getpk_hcdn <- function(huc2,
   
   st_list <- hcdn[[huc2]]
   
-  rst <- data.frame(water_year = c(1856:end_year)) 
+  rst <- data.table::data.table(water_year = c(1856:end_year)) 
   # Earliest available year = 1856, station ID = "20472000", not fully confirmed though
   
   rst$water_year <- as.character(rst$water_year)
@@ -52,9 +52,8 @@ getpk_hcdn <- function(huc2,
       wye <- paste0(wy, "-09-30")
       pks[length(pks)+1] <- getpk(i, wys, wye)
     }
-    rst[,length(rst)+1] <- pks
+    rst[,(i):=pks]
   }
-  colnames(rst)[-1] <- st_list
   return(rst)
 }
 

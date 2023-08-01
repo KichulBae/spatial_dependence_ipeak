@@ -1,7 +1,8 @@
 #### Using source files from USGS, create HCDN stations list with basic info
 # Load libraries ----------------------------------------------------------
-library(dataRetrieval)
 library(openxlsx)
+library(data.table)
+library(dataRetrieval)
 
 
 # Load state code file (source: USGS) and preprocess it  ------------------
@@ -76,21 +77,21 @@ load_hcdn <- function(
 # Define function to make a list of HCDN stations with basic info ---------
 # Written by   : Kichul Bae
 # Written on   : Jul 31, 2023
-# Description  : From USGS website (or local file),, retrieve a list of HCDN2009 stations, and make a table that contains station id, huc2, huc4, station name, state name, latitude, longitude, drainage area, and whether it belongs to CONUS or not (1 if it does)
+# Description  : From USGS website (or local file), retrieve a list of HCDN2009 stations, and make a table that contains station id, huc2, huc4, station name, state name, latitude, longitude, drainage area, and whether it belongs to CONUS or not (1 if it does)
 
 hcdn_list <- function(hcdn, st_code){
   
-  rst <- data.frame(station_id = character(),
-                    huc2 = character(),
-                    huc4 = character(),
-                    station_nm = character(),
-                    state_cd = character(),
-                    lat_dec = numeric(),
-                    log_dec = numeric(),
-                    drain_area = numeric(),
-                    drain_area_contr = numeric(),
-                    conus = numeric()
-  )
+  rst <- data.table::data.table(station_id = character(),
+                                huc2 = character(),
+                                huc4 = character(),
+                                station_nm = character(),
+                                state_cd = character(),
+                                lat_dec = numeric(),
+                                log_dec = numeric(),
+                                drain_area = numeric(),
+                                drain_area_contr = numeric(),
+                                conus = numeric()
+                                )
   
   error_stations <-c()
   
@@ -120,20 +121,20 @@ hcdn_list <- function(hcdn, st_code){
     } else {
       conus <- 0
     }
-    
-    rst[nrow(rst)+1, ] <- c(station_id, 
-                            huc2,
-                            huc4,
-                            station_nm,
-                            state_cd,
-                            lat_dec,
-                            log_dec,
-                            drain_area,
-                            drain_area_contr,
-                            conus)
+
+    rst <- rbindlist(list(rst, list(station_id, 
+                               huc2,
+                               huc4,
+                               station_nm,
+                               state_cd,
+                               lat_dec,
+                               log_dec,
+                               drain_area,
+                               drain_area_contr,
+                               conus)))
   }
   
-  print(sprintf("Failed to retrieve info of %i station(s) with dataRetrival", length(error_stations)))
+  print(sprintf("Failed to retrieve info of %i station(s) with dataRetrieval", length(error_stations)))
   print(error_stations)
   return(rst)
 }
@@ -144,8 +145,6 @@ result <- hcdn_list(hcdn, st_code)
 
 setwd("~/spatial_dependence_ipeak/hcdn_list")
 saveRDS(result,"hcdn_list.RData")
-
-
 
 
 

@@ -2,11 +2,11 @@
 
 
 # Load libraries ----------------------------------------------------------
-library(dataRetrieval)
-library(tidyverse)
 library(parallel)
 library(doParallel)
-
+library(dataRetrieval)
+library(tidyverse)
+library(data.table)
 # Source files ------------------------------------------------------------
 setwd("~/spatial_dependence_ipeak")
 
@@ -38,10 +38,4 @@ results <- c(parLapply(cl, c(1:18), end_year, fun=getpk_hcdn_prll))
 
 setwd("~/spatial_dependence_ipeak/HCDN_PEAK/")
 saveRDS(results, file="hcdn_ipeak.RData")
-
-
-
-
-
-
 
