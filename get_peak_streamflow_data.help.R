@@ -3,10 +3,10 @@
 
 # Function getting instantaneous peak values from NWIS with "dataRetrieval" ------------
 
-getpk <- function(station_ID, start_date="", end_date="") {
+getpk <- function(station_id, start_date="", end_date="") {
   tryCatch(
     expr = {
-      pk <- dataRetrieval::readNWISpeak(station_ID, start_date, end_date)
+      pk <- dataRetrieval::readNWISpeak(station_id, start_date, end_date)
       pk <- pk$peak_va
       if (is.null(pk) || length(pk) == 0) pk <- NA
       return(pk)
@@ -39,7 +39,7 @@ getpk_hcdn <- function(huc2,
   st_list <- hcdn[[huc2]]
   
   rst <- data.table::data.table(water_year = c(1856:end_year)) 
-  # Earliest available year = 1856, station ID = "20472000", not fully confirmed though
+  # Earliest available year = 1856, station id = "20472000", not fully confirmed though
   
   rst$water_year <- as.character(rst$water_year)
 

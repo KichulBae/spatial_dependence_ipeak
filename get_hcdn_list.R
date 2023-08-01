@@ -122,16 +122,16 @@ hcdn_list <- function(hcdn, st_code){
       conus <- 0
     }
 
-    rst <- rbindlist(list(rst, list(station_id, 
-                                    huc2,
-                                    huc4,
-                                    station_nm,
-                                    state_cd,
-                                    lat_dec,
-                                    log_dec,
-                                    drain_area,
-                                    drain_area_contr,
-                                    conus)))
+    rst <- data.table::rbindlist(list(rst, list(station_id,
+                                                huc2,
+                                                huc4,
+                                                station_nm,
+                                                state_cd,
+                                                lat_dec,
+                                                log_dec,
+                                                drain_area,
+                                                drain_area_contr,
+                                                conus)))
   }
   
   print(sprintf("Failed to retrieve info of %i station(s) with dataRetrieval", length(error_stations)))
