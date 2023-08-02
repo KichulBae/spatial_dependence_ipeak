@@ -11,6 +11,11 @@ library(dataRetrieval)
 source("~/spatial_dependence_ipeak/get_hcdn_list.help.R")
 
 
+# Define function to make a table of HCDN stations with basic info ---------
+# Written by   : Kichul Bae
+# Written on   : Jul 31, 2023
+# Description  : From the USGS website (or local files), retrieve a table of HCDN2009 stations, and make a table that contains station id, huc2, huc4, station name, state name, latitude, longitude, drainage area, and whether it belongs to the continental United States (CONUS) or not (1 if it does)
+
 st_code <- load_stcode("online") # Get state code
 hcdn <- load_hcdn("online") # Get HCDN2009 stations list
 
