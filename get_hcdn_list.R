@@ -1,8 +1,10 @@
 #### Using source files from USGS, create HCDN stations list with basic info
+
 # Load libraries ----------------------------------------------------------
 library(openxlsx)
 library(data.table)
 library(dataRetrieval)
+
 
 
 # Load state code file (source: USGS) and preprocess it  ------------------
@@ -63,6 +65,10 @@ load_hcdn <- function(
   for (i in 1:n) {
     st <- hcdn[i]
     st <- as.character(st)
+    if (st == "208111310") {
+      hcdn[i] <- "0208111310"
+      next
+    }
     n <- nchar(st)
     while (n < 8) {
       st <- paste0("0", st)
@@ -144,7 +150,7 @@ st_code <- load_stcode("online"); hcdn <- load_hcdn("online")
 result <- hcdn_list(hcdn, st_code)
 
 setwd("~/spatial_dependence_ipeak/hcdn_list")
-saveRDS(result,"hcdn_list.RData")
+saveRDS(result,"list_hcdn.RData")
 
 
 
